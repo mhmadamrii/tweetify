@@ -23,7 +23,7 @@ export interface UserLoginResponse {
 }
 
 export interface SaveUserActionProps {
-  id: string;
+  id: string | undefined;
   imageUrl?: string;
   name: string;
   username?: string;

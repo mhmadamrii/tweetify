@@ -22,6 +22,8 @@ export async function saveUserAction({
       where: { id },
     });
 
+    console.log('existing user', existingUser);
+
     if (existingUser) {
       return await prisma.user.update({
         where: { id },
@@ -33,7 +35,6 @@ export async function saveUserAction({
       });
     }
 
-    if (!imageUrl) throw new Error('imageUrl required');
     if (!username) throw new Error('username required');
     if (!email) throw new Error('email required');
 

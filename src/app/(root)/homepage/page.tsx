@@ -28,7 +28,12 @@ export default function Home() {
       <Link href="/homepage/user?onboarding=true" className="block">
         Homepage intercepting route
       </Link>
-      <Link href="/onboarding">GOOOOOO onboard</Link>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        Soluta eaque atque officiis reiciendis ab alias mollitia
+        exercitationem, libero aut ea id modi quaerat voluptates
+        deserunt ipsam consequuntur asperiores. Cupiditate, error?
+      </p>
     </div>
   );
 }

@@ -1,12 +1,13 @@
 'use client';
 
 import useStore from '~/store';
+import useSession from '~/lib/hooks/useSession';
 
 import { Button } from '~/components/ui/button';
 import { Input } from '~/components/ui/input';
-import { Label } from '~/components/ui/label';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { saveUserAction } from '~/actions/user.action';
 import { z } from 'zod';
 
 import {
@@ -27,6 +28,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '~/components/ui/dialog';
+import { useRouter } from 'next/navigation';
 
 const FormSchema = z.object({
   name: z.string().min(2, {
@@ -46,7 +48,9 @@ export default function OnboardingUserID({
     username: string;
   };
 }) {
+  const router = useRouter();
   const store = useStore();
+  const user = useSession();
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -58,10 +62,22 @@ export default function OnboardingUserID({
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     store.setRequestLoading(true);
+
+    const newUser = {
+      id: user?.id,
+      name: data.name,
+      username: user?.username,
+      email: user?.email,
+      bio: data.bio,
+      isCompleted: true,
+    };
     try {
+      const data = await saveUserAction(newUser);
+      console.log('data update', data);
     } catch (error) {
       console.log('error', error);
     } finally {
+      router.push('/homepage');
     }
   }
 
