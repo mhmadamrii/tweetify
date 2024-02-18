@@ -1,12 +1,12 @@
 'use client';
 
 import Link from 'next/link';
-import useSession from '~/lib/useSession';
+import useSession from '~/lib/hooks/useSession';
 import useStore from '~/store';
 
 import { useRouter } from 'next/navigation';
 import { Button } from '../ui/button';
-import { apiLogoutUser } from '~/lib/api-requests';
+import { apiLogoutUser } from '~/actions/auth.action';
 import { useEffect, useState } from 'react';
 
 export default function Authenticated({

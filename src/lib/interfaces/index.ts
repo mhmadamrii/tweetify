@@ -21,3 +21,14 @@ export interface UserLoginResponse {
   status: string;
   token: string;
 }
+
+export interface SaveUserActionProps {
+  id: string;
+  imageUrl?: string;
+  name: string;
+  username?: string;
+  email?: string;
+  bio: string;
+  isCompleted: boolean;
+  password?: string | undefined;
+}

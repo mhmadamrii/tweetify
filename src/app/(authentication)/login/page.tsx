@@ -7,7 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { Input } from '~/components/ui/input';
-import { apiLoginUser } from '~/lib/api-requests';
+import { apiLoginUser } from '~/actions/auth.action';
 import { z } from 'zod';
 
 import { Button } from '~/components/ui/button';
@@ -55,21 +55,19 @@ export default function Login() {
   }
 
   return (
-    <section className="flex w-full flex-col items-center justify-center">
-      <Link href={'/register'}>Register</Link>
-      <Link href={'/login'}>login</Link>
-
+    <section className="flex w-full flex-col items-center justify-center md:w-[500px]">
+      <h1 className="text-2xl font-bold">Login</h1>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="w-2/3 space-y-6"
+          className="w-full space-y-6"
         >
           <FormField
             control={form.control}
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Username</FormLabel>
+                <FormLabel>Email</FormLabel>
                 <FormControl>
                   <Input placeholder="shadcn" {...field} />
                 </FormControl>
@@ -86,7 +84,7 @@ export default function Login() {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Username</FormLabel>
+                <FormLabel>Password</FormLabel>
                 <FormControl>
                   <Input placeholder="shadcn" {...field} />
                 </FormControl>
@@ -97,9 +95,20 @@ export default function Login() {
               </FormItem>
             )}
           />
-          <Button type="submit">Submit</Button>
+          <Button className="w-full" type="submit">
+            Submit
+          </Button>
         </form>
       </Form>
+      <Link className="mt-5 text-sm underline" href="#">
+        Forgot password?
+      </Link>
+      <div className="text-sm">
+        Don't have an account?
+        <Link className="ml-1 underline" href="/register">
+          Sign up
+        </Link>
+      </div>
     </section>
   );
 }

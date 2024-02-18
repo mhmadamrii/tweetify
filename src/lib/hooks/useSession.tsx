@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { apiGetAuthUser } from './api-requests';
+import { apiGetAuthUser } from '../../actions/auth.action';
 import useStore from '~/store';
 
 export default function useSession() {

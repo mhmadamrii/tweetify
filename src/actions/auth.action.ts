@@ -2,7 +2,7 @@ import {
   FilteredUser,
   UserLoginResponse,
   UserResponse,
-} from './types';
+} from '../lib/interfaces';
 
 const SERVER_ENDPOINT =
   process.env.SERVER_ENDPOINT || 'http://localhost:3000';
@@ -54,8 +54,6 @@ export async function apiLoginUser(
     },
     body: credentials,
   });
-  console.log('response', response);
-
   return handleResponse<UserLoginResponse>(response).then(
     (data) => data.token,
   );

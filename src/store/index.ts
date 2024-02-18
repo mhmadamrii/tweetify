@@ -1,6 +1,6 @@
 'use client';
 
-import { FilteredUser } from '~/lib/types';
+import { FilteredUser } from '~/lib/interfaces';
 import { create } from 'zustand';
 
 type Store = {

@@ -1,21 +1,25 @@
 'use client';
 
 import Link from 'next/link';
-import useSession from '~/lib/useSession';
 
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { apiGetAuthUser } from '~/actions/auth.action';
 
 export default function Home() {
-  const user = useSession();
   const router = useRouter();
 
-  useEffect(() => {
+  const handleRedirectUncompleteUser = async () => {
+    const user = await apiGetAuthUser();
     if (!user?.isCompleted) {
       router.push(
         `/homepage/onboarding?user-id=${user?.id}&username=${user?.username}`,
       );
     }
+  };
+
+  useEffect(() => {
+    handleRedirectUncompleteUser();
   }, []);
 
   return (

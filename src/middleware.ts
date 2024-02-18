@@ -86,7 +86,7 @@ export async function middleware(req: NextRequest) {
 
 export const config = {
   matcher: [
-    '/homepage',
+    '/homepage/:path*',
     '/profile',
     '/login',
     '/search',
