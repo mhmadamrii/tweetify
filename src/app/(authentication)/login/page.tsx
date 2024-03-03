@@ -9,8 +9,9 @@ import { useForm } from 'react-hook-form';
 import { Input } from '~/components/ui/input';
 import { apiLoginUser } from '~/actions/auth.action';
 import { z } from 'zod';
-
 import { Button } from '~/components/ui/button';
+import { useToast } from '~/components/ui/use-toast';
+
 import {
   Form,
   FormControl,
@@ -33,6 +34,7 @@ const FormSchema = z.object({
 export default function Login() {
   const store = useStore();
   const router = useRouter();
+  const { toast } = useToast();
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -50,7 +52,11 @@ export default function Login() {
       console.log('error', error);
     } finally {
       store.setRequestLoading(false);
-      router.push('/');
+      router.push('/homepage');
+      toast({
+        title: 'Successful',
+        description: 'Lorem ipsum dolor',
+      });
     }
   }
 
@@ -89,7 +95,7 @@ export default function Login() {
                   <Input placeholder="shadcn" {...field} />
                 </FormControl>
                 <FormDescription>
-                  This is your public display name.
+                  This is your email address for the account.
                 </FormDescription>
                 <FormMessage />
               </FormItem>
