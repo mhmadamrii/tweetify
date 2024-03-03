@@ -12,18 +12,53 @@ datasource db {
 
 
 model User {
-  id          String      @id
-  name        String      @db.Char(30)
-  username    String      @unique @db.Char(64)
-  email       String      @unique
-  imageUrl    String?
-  password    String
-  bannerUrl   String?
-  location    String?     @db.Char(30)
-  website     String?     @db.Char(30)
-  isCompleted Boolean     @default(false)
-  bio         String?     @db.Char(255)
+  id                    String      @id
+  name                  String      @db.Char(30)
+  username              String      @unique @db.Char(64)
+  email                 String      @unique
+  imageUrl              String?
+  password              String
+  bannerUrl             String?
+  location              String?     @db.Char(30)
+  website               String?     @db.Char(30)
+  isCompleted           Boolean     @default(false)
+  bio                   String?     @db.Char(255)
 
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  tweets                Tweet[]
+  followers             Follower[]  @relation("UserFollowers")
+  followings            Follower[]  @relation("UserFollowing")
+  likes                 Like[]
+
+  createdAt             DateTime    @default(now())
+  updatedAt             DateTime    @updatedAt
+}
+
+model Follower {
+  id                    String      @id                   @default(uuid())
+  followerId            String
+  followingId           String
+
+
+  user                  User        @relation("UserFollowers", fields: [followerId], references: [id], onDelete: Cascade)
+  following             User        @relation("UserFollowing", fields: [followingId], references: [id], onDelete: Cascade)
+}
+
+model Tweet {
+  id                    String      @id                   @default(uuid())
+  text                  String      @db.Char(225)
+  userId                String
+  imageUrl              String?
+  user                  User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt             DateTime    @default(now())
+  likes                 Like[]      @relation("PostLikes")
+}
+
+
+model Like {
+  id                    String      @id   @default(uuid())
+  userId                String
+  tweetId               String
+  user                  User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tweet                 Tweet       @relation("PostLikes", fields: [tweetId], references: [id],  onDelete: Cascade)
 }

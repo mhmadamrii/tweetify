@@ -6,7 +6,7 @@ import useStore from '~/store';
 
 import { useRouter } from 'next/navigation';
 import { Button } from '../ui/button';
-import { apiLogoutUser } from '~/actions/auth.action';
+import { apiLogoutUser, apiGetAuthUser } from '~/actions/auth.action';
 import { useEffect, useState } from 'react';
 
 export default function Authenticated({
@@ -31,6 +31,17 @@ export default function Authenticated({
     }
   };
 
+  const handleRedirectUncompleteUser = async () => {
+    const user = await apiGetAuthUser();
+    if (!user?.isCompleted) {
+      router.push(
+        `/homepage/onboarding?user-id=${user?.id}&username=${user?.username}`,
+      );
+    }
+  };
+
+  if (isMounted) handleRedirectUncompleteUser();
+
   useEffect(() => {
     setIsMounted(true);
     return () => setIsMounted(false);
@@ -42,6 +53,7 @@ export default function Authenticated({
         <nav>
           <Link href="/">Home</Link>
           <Link href="/search">Search</Link>
+          <Link href="/tweet/create-tweet">Create Tweet</Link>
         </nav>
         <Button onClick={handleLogout}>Logout</Button>
       </div>

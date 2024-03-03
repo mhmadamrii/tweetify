@@ -1,27 +1,9 @@
-'use client';
-
 import Link from 'next/link';
+import TweetLists from '~/components/shared/tweet-lists';
 
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { apiGetAuthUser } from '~/actions/auth.action';
+import { Suspense } from 'react';
 
 export default function Home() {
-  const router = useRouter();
-
-  const handleRedirectUncompleteUser = async () => {
-    const user = await apiGetAuthUser();
-    if (!user?.isCompleted) {
-      router.push(
-        `/homepage/onboarding?user-id=${user?.id}&username=${user?.username}`,
-      );
-    }
-  };
-
-  useEffect(() => {
-    handleRedirectUncompleteUser();
-  }, []);
-
   return (
     <div>
       <h1>Homepage</h1>
@@ -34,6 +16,9 @@ export default function Home() {
         exercitationem, libero aut ea id modi quaerat voluptates
         deserunt ipsam consequuntur asperiores. Cupiditate, error?
       </p>
+      <Suspense fallback={<span>Loading contents....</span>}>
+        <TweetLists />
+      </Suspense>
     </div>
   );
 }
