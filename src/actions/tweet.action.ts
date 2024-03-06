@@ -1,6 +1,7 @@
 'use server';
 
 import { prisma } from '~/lib/prisma';
+import { revalidatePath } from 'next/cache';
 
 export const createTweetAction = async ({
   text,
@@ -21,6 +22,8 @@ export const createTweetAction = async ({
     });
   } catch (error) {
     console.log('error', error);
+  } finally {
+    revalidatePath('/homepage');
   }
 };
 

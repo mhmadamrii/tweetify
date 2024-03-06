@@ -5,10 +5,10 @@ export default async function TweetLists() {
     (await getTweetsAction({ userId: 'x0aiyAND' })) ?? [];
   return (
     <>
-      <div>Tweet lists</div>
-      <div>Tweet lists</div>
       {tweets?.map((item, idx) => (
-        <div key={item?.id}>{item?.text}</div>
+        <div key={item?.id} className="min-h-60 border">
+          <h1 className="text-lg">{item?.text}</h1>
+        </div>
       ))}
     </>
   );

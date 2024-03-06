@@ -1,13 +1,15 @@
 'use client';
 
-import { Textarea } from '~/components/ui/textarea';
 import { Button } from '~/components/ui/button';
 import { CardContent, Card } from '~/components/ui/card';
 import { z } from 'zod';
 import { tweetSchema } from '~/lib/validations/tweet.schema';
 import { createTweetAction } from '~/actions/tweet.action';
+import { Input } from '~/components/ui/input';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { toast } from '~/components/ui/use-toast';
+
 import {
   Form,
   FormControl,
@@ -17,7 +19,6 @@ import {
   FormLabel,
   FormMessage,
 } from '~/components/ui/form';
-import { Input } from '~/components/ui/input';
 
 export default function CreateTweet() {
   const form = useForm<z.infer<typeof tweetSchema>>({
@@ -30,52 +31,67 @@ export default function CreateTweet() {
   });
 
   const onSubmit = async (values: z.infer<typeof tweetSchema>) => {
-    console.log('values', values);
+    const now = new Date();
+
+    // Get the full date (YYYY-MM-DD format)
+    const fullDate = now.toISOString().split('T')[0];
+
+    // Get the hour (24-hour format)
+    const hour = now.getHours();
+
+    // Get the date (1-31)
+    const date = now.getDate();
     try {
       await createTweetAction(values);
     } catch (error) {
       console.log(error);
     } finally {
+      toast({
+        title: 'New Tweet created',
+        description: `${fullDate} - ${hour} - ${date}`,
+      });
       form.reset();
     }
   };
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
-        <Card className="w-full">
-          <CardContent className="flex flex-col gap-2">
-            <FormField
-              control={form.control}
-              name="text"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Tweet</FormLabel>
-                  <FormControl>
-                    <Input placeholder="shadcn" {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    This is your public display name.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <div className="flex items-center space-x-2">
-              <div className="text-sm font-medium text-gray-500 dark:text-gray-400">
-                Your followers can reply, Retweet, or like
-              </div>
-              <div className="ml-auto flex items-center space-x-1">
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800">
-                  <TwitterIcon className="h-4 w-4 text-gray-500 transition-transform group-hover:scale-95 dark:text-gray-400" />
+    <div>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
+          <Card className="w-full">
+            <CardContent className="flex flex-col gap-2">
+              <FormField
+                control={form.control}
+                name="text"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Tweet</FormLabel>
+                    <FormControl>
+                      <Input placeholder="shadcn" {...field} />
+                    </FormControl>
+                    <FormDescription>
+                      This is your public display name.
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <div className="flex items-center space-x-2">
+                <div className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                  Your followers can reply, Retweet, or like
                 </div>
-                <Button size="sm">Tweet</Button>
+                <div className="ml-auto flex items-center space-x-1">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800">
+                    <TwitterIcon className="h-4 w-4 text-gray-500 transition-transform group-hover:scale-95 dark:text-gray-400" />
+                  </div>
+                  <Button size="sm">Tweet</Button>
+                </div>
               </div>
-            </div>
-          </CardContent>
-        </Card>
-      </form>
-    </Form>
+            </CardContent>
+          </Card>
+        </form>
+      </Form>
+    </div>
   );
 }
 
