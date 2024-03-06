@@ -4,8 +4,8 @@ import {
   UserResponse,
 } from '../lib/interfaces';
 
-const SERVER_ENDPOINT =
-  process.env.SERVER_ENDPOINT || 'http://localhost:3000';
+const SERVER_ENDPOINT = 'https://project-21-tweetify.vercel.app';
+// process.env.SERVER_ENDPOINT || 'http://localhost:3000';
 
 async function handleResponse<T>(response: Response): Promise<T> {
   const contentType = response.headers.get('Content-Type') || '';
