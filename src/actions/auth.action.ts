@@ -54,6 +54,7 @@ export async function apiLoginUser(
     },
     body: credentials,
   });
+
   return handleResponse<UserLoginResponse>(response).then(
     (data) => data.token,
   );
