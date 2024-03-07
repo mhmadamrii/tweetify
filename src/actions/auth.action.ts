@@ -5,7 +5,13 @@ import {
 } from '../lib/interfaces';
 
 // const SERVER_ENDPOINT = 'http://localhost:3000';
-const SERVER_ENDPOINT = 'https://project-21-tweetify.vercel.app';
+const environment = process.env.NODE_ENV;
+const SERVER_ENDPOINT =
+  environment === 'development'
+    ? 'http://localhost:3000'
+    : 'https://project-21-tweetify.vercel.app';
+console.log('process env', process.env.NODE_ENV);
+console.log('server endpoint', SERVER_ENDPOINT);
 
 async function handleResponse<T>(response: Response): Promise<T> {
   const contentType = response.headers.get('Content-Type') || '';

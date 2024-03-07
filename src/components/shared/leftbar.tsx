@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { Home, Search, Bell, Mail } from 'lucide-react';
+import { Home, Twitter, Search, Bell, Mail } from 'lucide-react';
 
 const navLists = [
   {
@@ -27,14 +27,18 @@ const navLists = [
 
 export default function Leftbar() {
   return (
-    <section className="sticky top-0 flex h-screen min-w-[100px] flex-col gap-6 border pl-[40px] sm:min-w-[100px] md:min-w-[300px]">
+    <section className="sticky top-0 flex h-screen min-w-[100px] flex-col items-end gap-2 border p-0 sm:min-w-[100px] sm:items-start sm:pl-[40px] md:min-w-[300px]">
+      <div className="flex w-full justify-end px-5 sm:justify-normal">
+        <Twitter />
+      </div>
       {navLists.map((item, idx) => (
-        <Link
-          href={item.link}
-          key={idx}
-          className="flex h-11 items-center gap-2 rounded-lg border px-2 py-4 hover:bg-slate-50"
-        >
-          {item.icon} {item.label}
+        <Link href={item.link} key={idx}>
+          <div className="inline-block w-auto rounded-full px-5 py-3 hover:bg-gray-200">
+            <div className="flex gap-2">
+              {item.icon}
+              <div className="hidden sm:block">{item.label}</div>
+            </div>
+          </div>
         </Link>
       ))}
     </section>

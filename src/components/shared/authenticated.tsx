@@ -1,11 +1,11 @@
 'use client';
 
-import Link from 'next/link';
 import useStore from '~/store';
 import Leftbar from './leftbar';
+import Navbar from './navbar';
+import Rightbar from './rightbar';
 
 import { useRouter } from 'next/navigation';
-import { Button } from '../ui/button';
 import { apiLogoutUser, apiGetAuthUser } from '~/actions/auth.action';
 import { useEffect, useState } from 'react';
 
@@ -57,24 +57,3 @@ export default function Authenticated({
     </section>
   );
 }
-
-const Navbar = ({ handleLogout }: { handleLogout: () => void }) => {
-  return (
-    <section className="sticky top-0 flex h-[80px] w-full items-center justify-between backdrop-blur-sm">
-      <nav className="flex w-full items-center gap-3">
-        <Link href="/homepage">Home</Link>
-        <Link href="/search">Search</Link>
-        <Link href="/tweet/create-tweet">Create Tweet</Link>
-      </nav>
-      <Button onClick={handleLogout}>Logout</Button>
-    </section>
-  );
-};
-
-const Rightbar = () => {
-  return (
-    <section className="hidden h-screen min-w-[300px] border sm:flex">
-      <div>Search button</div>
-    </section>
-  );
-};
