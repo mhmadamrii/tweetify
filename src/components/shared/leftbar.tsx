@@ -27,7 +27,7 @@ const navLists = [
 
 export default function Leftbar() {
   return (
-    <section className="sticky top-0 flex h-screen min-w-[100px] flex-col items-end gap-2 border p-0 sm:min-w-[100px] sm:items-start sm:pl-[40px] md:min-w-[300px]">
+    <section className="sticky top-0 flex h-screen min-w-[100px] flex-col items-end gap-2 border p-0 sm:min-w-[100px] sm:items-start sm:pl-[40px] md:min-w-[200px] lg:min-w-[300px]">
       <div className="flex w-full justify-end px-5 sm:justify-normal">
         <Twitter />
       </div>
@@ -36,7 +36,9 @@ export default function Leftbar() {
           <div className="inline-block w-auto rounded-full px-5 py-3 hover:bg-gray-200">
             <div className="flex gap-2">
               {item.icon}
-              <div className="hidden sm:block">{item.label}</div>
+              <div className="hidden sm:hidden md:block">
+                {item.label}
+              </div>
             </div>
           </div>
         </Link>
