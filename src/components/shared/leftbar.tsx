@@ -27,8 +27,8 @@ const navLists = [
 
 export default function Leftbar() {
   return (
-    <section className="sticky top-0 flex h-screen min-w-[100px] flex-col items-end gap-2 border p-0 sm:min-w-[100px] sm:items-start sm:pl-[40px] md:min-w-[200px] lg:min-w-[300px]">
-      <div className="flex w-full justify-end px-5 sm:justify-normal">
+    <section className="sticky top-0 flex h-screen w-[100px] flex-col items-end gap-2 border p-0 sm:w-[100px] sm:items-end sm:pl-[40px] md:min-w-[200px] md:items-start lg:w-[600px]">
+      <div className="flex w-full justify-end px-5 sm:justify-end md:justify-normal">
         <Twitter />
       </div>
       {navLists.map((item, idx) => (
@@ -43,6 +43,9 @@ export default function Leftbar() {
           </div>
         </Link>
       ))}
+      <div className="absolute bottom-4 flex flex-1 cursor-pointer rounded-full px-5 py-3 hover:bg-gray-200">
+        <p>lorem ipsum</p>
+      </div>
     </section>
   );
 }

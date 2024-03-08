@@ -12,7 +12,6 @@ import { ZodError } from 'zod';
 export async function POST(req: NextRequest) {
   try {
     const body = (await req.json()) as LoginUserInput;
-    console.log('body credentials', body);
     const data = LoginUserSchema.parse(body);
 
     const user = await prisma.user.findUnique({
