@@ -1,5 +1,8 @@
 'use client';
 
+import React, { useState } from 'react';
+import Image from 'next/image';
+
 import { Button } from '~/components/ui/button';
 import { CardContent, Card } from '~/components/ui/card';
 import { z } from 'zod';
@@ -9,6 +12,7 @@ import { Input } from '~/components/ui/input';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from '~/components/ui/use-toast';
+import { UploadButton } from '~/lib/uploadthing';
 
 import {
   Form,
@@ -21,6 +25,7 @@ import {
 } from '~/components/ui/form';
 
 export default function CreateTweet() {
+  const [uploadedImage, setUploadedImage] = useState('');
   const form = useForm<z.infer<typeof tweetSchema>>({
     resolver: zodResolver(tweetSchema),
     defaultValues: {
@@ -76,6 +81,28 @@ export default function CreateTweet() {
                   </FormItem>
                 )}
               />
+              <div>
+                {uploadedImage !== '' ? (
+                  <Image
+                    src={uploadedImage}
+                    alt="preview image"
+                    width={100}
+                    height={100}
+                  />
+                ) : (
+                  <UploadButton
+                    endpoint="imageUploader"
+                    onClientUploadComplete={(res) => {
+                      // Do something with the response
+                      setUploadedImage(res[0].url);
+                    }}
+                    onUploadError={(error: Error) => {
+                      // Do something with the error.
+                      alert(`ERROR! ${error.message}`);
+                    }}
+                  />
+                )}
+              </div>
               <div className="flex items-center space-x-2">
                 <div className="text-sm font-medium text-gray-500 dark:text-gray-400">
                   Your followers can reply, Retweet, or like
