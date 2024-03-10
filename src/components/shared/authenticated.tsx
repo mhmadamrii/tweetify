@@ -4,6 +4,7 @@ import useStore from '~/store';
 import Leftbar from './leftbar';
 import Navbar from './navbar';
 import Rightbar from './rightbar';
+import useSession from '~/lib/hooks/useSession';
 
 import { useRouter } from 'next/navigation';
 import { apiLogoutUser, apiGetAuthUser } from '~/actions/auth.action';
@@ -17,6 +18,7 @@ export default function Authenticated({
   const [isMounted, setIsMounted] = useState<boolean>(false);
   const store = useStore();
   const router = useRouter();
+  const user = useSession();
 
   const handleLogout = async () => {
     store.setRequestLoading(true);

@@ -1,5 +1,8 @@
+'use client';
+
 import Link from 'next/link';
 
+import { useRouter } from 'next/navigation';
 import { Home, Twitter, Search, Bell, Mail } from 'lucide-react';
 
 const navLists = [
@@ -26,6 +29,7 @@ const navLists = [
 ];
 
 export default function Leftbar() {
+  const router = useRouter();
   return (
     <section className="sticky top-0 flex h-screen w-[100px] flex-col items-end gap-2 border p-0 sm:w-[100px] sm:items-end sm:pl-[40px] md:min-w-[200px] md:items-start lg:w-[600px]">
       <div className="flex w-full justify-end px-5 sm:justify-end md:justify-normal">
@@ -44,7 +48,9 @@ export default function Leftbar() {
         </Link>
       ))}
       <div className="absolute bottom-4 flex flex-1 cursor-pointer rounded-full px-5 py-3 hover:bg-gray-200">
-        <p>lorem ipsum</p>
+        <div onClick={() => router.push('?create-post=true')}>
+          Post
+        </div>
       </div>
     </section>
   );

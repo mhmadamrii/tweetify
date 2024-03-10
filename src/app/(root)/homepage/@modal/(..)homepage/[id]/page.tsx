@@ -8,6 +8,7 @@ import { Input } from '~/components/ui/input';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { saveUserAction } from '~/actions/user.action';
+import { useRouter } from 'next/navigation';
 import { z } from 'zod';
 
 import {
@@ -24,11 +25,9 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from '~/components/ui/dialog';
-import { useRouter } from 'next/navigation';
 
 const FormSchema = z.object({
   name: z.string().min(2, {

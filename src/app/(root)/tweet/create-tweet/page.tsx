@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
+import useStore from '~/store';
 
 import { Button } from '~/components/ui/button';
 import { CardContent, Card } from '~/components/ui/card';
@@ -25,11 +26,13 @@ import {
 } from '~/components/ui/form';
 
 export default function CreateTweet() {
+  const store = useStore();
+  console.log(store.authUser);
   const [uploadedImage, setUploadedImage] = useState('');
   const form = useForm<z.infer<typeof tweetSchema>>({
     resolver: zodResolver(tweetSchema),
     defaultValues: {
-      userId: 'x0aiyAND',
+      userId: store.authUser?.id,
       text: '',
       imageUrl: '',
     },
@@ -60,65 +63,63 @@ export default function CreateTweet() {
   };
 
   return (
-    <div>
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
-          <Card className="w-full">
-            <CardContent className="flex flex-col gap-2">
-              <FormField
-                control={form.control}
-                name="text"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Tweet</FormLabel>
-                    <FormControl>
-                      <Input placeholder="shadcn" {...field} />
-                    </FormControl>
-                    <FormDescription>
-                      This is your public display name.
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <div>
-                {uploadedImage !== '' ? (
-                  <Image
-                    src={uploadedImage}
-                    alt="preview image"
-                    width={100}
-                    height={100}
-                  />
-                ) : (
-                  <UploadButton
-                    endpoint="imageUploader"
-                    onClientUploadComplete={(res) => {
-                      // Do something with the response
-                      setUploadedImage(res[0].url);
-                    }}
-                    onUploadError={(error: Error) => {
-                      // Do something with the error.
-                      alert(`ERROR! ${error.message}`);
-                    }}
-                  />
-                )}
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
+        <Card className="w-full">
+          <CardContent className="flex flex-col gap-2">
+            <FormField
+              control={form.control}
+              name="text"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Tweet</FormLabel>
+                  <FormControl>
+                    <Input placeholder="shadcn" {...field} />
+                  </FormControl>
+                  <FormDescription>
+                    This is your public display name.
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <div>
+              {uploadedImage !== '' ? (
+                <Image
+                  src={uploadedImage}
+                  alt="preview image"
+                  width={100}
+                  height={100}
+                />
+              ) : (
+                <UploadButton
+                  endpoint="imageUploader"
+                  onClientUploadComplete={(res) => {
+                    // Do something with the response
+                    setUploadedImage(res[0].url);
+                  }}
+                  onUploadError={(error: Error) => {
+                    // Do something with the error.
+                    alert(`ERROR! ${error.message}`);
+                  }}
+                />
+              )}
+            </div>
+            <div className="flex items-center space-x-2">
+              <div className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                Your followers can reply, Retweet, or like
               </div>
-              <div className="flex items-center space-x-2">
-                <div className="text-sm font-medium text-gray-500 dark:text-gray-400">
-                  Your followers can reply, Retweet, or like
+              <div className="ml-auto flex items-center space-x-1">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800">
+                  <TwitterIcon className="h-4 w-4 text-gray-500 transition-transform group-hover:scale-95 dark:text-gray-400" />
                 </div>
-                <div className="ml-auto flex items-center space-x-1">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800">
-                    <TwitterIcon className="h-4 w-4 text-gray-500 transition-transform group-hover:scale-95 dark:text-gray-400" />
-                  </div>
-                  <Button size="sm">Tweet</Button>
-                </div>
+                <Button size="sm">Tweet</Button>
               </div>
-            </CardContent>
-          </Card>
-        </form>
-      </Form>
-    </div>
+            </div>
+          </CardContent>
+        </Card>
+      </form>
+    </Form>
   );
 }
 
