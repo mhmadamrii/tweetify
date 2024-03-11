@@ -9,6 +9,7 @@ import useSession from '~/lib/hooks/useSession';
 import { useRouter } from 'next/navigation';
 import { apiLogoutUser, apiGetAuthUser } from '~/actions/auth.action';
 import { useEffect, useState } from 'react';
+import { AppProgressBar as ProgressBar } from 'next-nprogress-bar';
 
 export default function Authenticated({
   children,
@@ -49,13 +50,21 @@ export default function Authenticated({
   }, []);
 
   return (
-    <section className="flex">
-      <Leftbar />
-      <div className="w-full">
-        <Navbar handleLogout={handleLogout} />
-        {children}
-      </div>
-      <Rightbar />
-    </section>
+    <>
+      <ProgressBar
+        height="4px"
+        color="#050000"
+        options={{ showSpinner: false }}
+        shallowRouting
+      />
+      <section className="flex">
+        <Leftbar />
+        <div className="w-full">
+          <Navbar handleLogout={handleLogout} />
+          {children}
+        </div>
+        <Rightbar />
+      </section>
+    </>
   );
 }

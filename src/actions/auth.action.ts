@@ -60,6 +60,7 @@ export async function apiLoginUser(
     },
     body: credentials,
   });
+  console.log('user response', response);
 
   return handleResponse<UserLoginResponse>(response).then(
     (data) => data.token,

@@ -22,8 +22,6 @@ export async function saveUserAction({
       where: { id },
     });
 
-    console.log('existing user', existingUser);
-
     if (existingUser) {
       return await prisma.user.update({
         where: { id },

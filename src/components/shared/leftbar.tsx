@@ -31,7 +31,7 @@ const navLists = [
 export default function Leftbar() {
   const router = useRouter();
   return (
-    <section className="sticky top-0 flex h-screen w-[100px] flex-col items-end gap-2 border p-0 sm:w-[100px] sm:items-end sm:pl-[40px] md:min-w-[200px] md:items-start lg:w-[600px]">
+    <section className="sticky top-0 flex h-screen w-[100px] flex-col items-end gap-2 border p-0 sm:w-[100px] sm:items-end sm:pl-[100px] md:w-[200px] md:items-start md:p-0 md:pl-7 lg:w-[500px] lg:pl-[130px]">
       <div className="flex w-full justify-end px-5 sm:justify-end md:justify-normal">
         <Twitter />
       </div>

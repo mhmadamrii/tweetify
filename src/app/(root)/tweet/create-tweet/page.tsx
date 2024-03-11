@@ -50,7 +50,7 @@ export default function CreateTweet() {
     // Get the date (1-31)
     const date = now.getDate();
     try {
-      await createTweetAction(values);
+      // await createTweetAction(values);
     } catch (error) {
       console.log(error);
     } finally {

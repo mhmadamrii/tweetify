@@ -1,26 +1,27 @@
 'use client';
 
+import Link from 'next/link';
 import useStore from '~/store';
 
 import { useRouter } from 'next/navigation';
 import { Input } from '~/components/ui/input';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { cn } from '~/lib/utils';
 import { z } from 'zod';
+import { handleApiError } from '~/lib/helpers';
+import { apiRegisterUser } from '~/actions/auth.action';
+import { LoadingSpinner } from '../_components';
 
 import { Button } from '~/components/ui/button';
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from '~/components/ui/form';
-import { handleApiError } from '~/lib/helpers';
-import { apiRegisterUser } from '~/actions/auth.action';
-import Link from 'next/link';
 
 const FormSchema = z.object({
   name: z.string().min(2, {
@@ -68,12 +69,12 @@ export default function Register() {
   }
 
   return (
-    <section className="flex w-full flex-col items-center justify-center md:w-[500px]">
+    <section className="flex w-full flex-col items-center justify-start md:w-[500px]">
       <h1 className="text-2xl font-bold">Register</h1>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="w-full space-y-6"
+          className="w-full space-y-3"
         >
           <FormField
             control={form.control}
@@ -82,11 +83,12 @@ export default function Register() {
               <FormItem>
                 <FormLabel>name</FormLabel>
                 <FormControl>
-                  <Input placeholder="shadcn" {...field} />
+                  <Input
+                    placeholder="John Doe"
+                    disabled={store.requestLoading}
+                    {...field}
+                  />
                 </FormControl>
-                <FormDescription>
-                  This is your public display name.
-                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -99,11 +101,12 @@ export default function Register() {
               <FormItem>
                 <FormLabel>email</FormLabel>
                 <FormControl>
-                  <Input placeholder="shadcn" {...field} />
+                  <Input
+                    placeholder="john@mail.com"
+                    disabled={store.requestLoading}
+                    {...field}
+                  />
                 </FormControl>
-                <FormDescription>
-                  This is your public display name.
-                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -116,11 +119,12 @@ export default function Register() {
               <FormItem>
                 <FormLabel>password</FormLabel>
                 <FormControl>
-                  <Input placeholder="shadcn" {...field} />
+                  <Input
+                    placeholder="john"
+                    disabled={store.requestLoading}
+                    {...field}
+                  />
                 </FormControl>
-                <FormDescription>
-                  This is your public display name.
-                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -133,18 +137,24 @@ export default function Register() {
               <FormItem>
                 <FormLabel>confirm password</FormLabel>
                 <FormControl>
-                  <Input placeholder="shadcn" {...field} />
+                  <Input
+                    placeholder="john"
+                    disabled={store.requestLoading}
+                    {...field}
+                  />
                 </FormControl>
-                <FormDescription>
-                  This is your public display name.
-                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
           />
 
-          <Button className="w-full" type="submit">
-            Submit
+          <Button
+            className={cn('w-full', {
+              'border border-black bg-white': store.requestLoading,
+            })}
+            type="submit"
+          >
+            {store.requestLoading ? <LoadingSpinner /> : 'Submit'}
           </Button>
         </form>
       </Form>

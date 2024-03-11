@@ -2,7 +2,7 @@ import { Input } from '../ui/input';
 
 export default function Rightbar() {
   return (
-    <div className="hidden w-[100px] flex-col sm:hidden sm:min-w-[100px] md:flex lg:w-[600px]">
+    <div className="hidden w-full flex-col sm:hidden sm:min-w-[100px] md:flex lg:w-[600px]">
       <div className="sticky right-0 top-0 bg-white p-3">
         <Input type="text" placeholder="Search" />
       </div>

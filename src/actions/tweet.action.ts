@@ -47,3 +47,17 @@ export const getTweetsAction = async ({
     console.log(error);
   }
 };
+
+export const getAllTweetsAction = async () => {
+  try {
+    const data = await prisma.tweet.findMany({
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+    console.log('data tweet', data);
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
