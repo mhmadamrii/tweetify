@@ -54,7 +54,6 @@ model Tweet {
   likes                 Like[]      @relation("PostLikes")
 }
 
-
 model Like {
   id                    String      @id   @default(uuid())
   userId                String

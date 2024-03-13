@@ -1,12 +1,21 @@
 'use client';
 
 import Authenticated from '~/components/shared/authenticated';
-import useSession from '~/lib/hooks/useSession';
+import CreateTweet from '~/components/shared/create-tweet-modal';
+import { useSearchParams } from 'next/navigation';
 
 export default function Layout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return <Authenticated>{children}</Authenticated>;
+  const searchParams = useSearchParams();
+  const isOpenPost = searchParams.get('create-post');
+  console.log(!!isOpenPost);
+  return (
+    <Authenticated>
+      {children}
+      {!!isOpenPost && <CreateTweet />}
+    </Authenticated>
+  );
 }

@@ -41,7 +41,6 @@ export const getTweetsAction = async ({
         createdAt: 'desc',
       },
     });
-    console.log('data tweet', data);
     return data;
   } catch (error) {
     console.log(error);
@@ -54,8 +53,18 @@ export const getAllTweetsAction = async () => {
       orderBy: {
         createdAt: 'desc',
       },
+      include: {
+        user: {
+          select: {
+            bannerUrl: true,
+            imageUrl: true,
+            name: true,
+            bio: true,
+            isCompleted: true,
+          },
+        },
+      },
     });
-    console.log('data tweet', data);
     return data;
   } catch (error) {
     console.log(error);
