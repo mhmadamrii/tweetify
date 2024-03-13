@@ -15,10 +15,6 @@ const nextConfig = {
       },
     ],
   },
-  experimental: {
-    missingSuspenseWithCSRBailout: false,
-  },
-  // https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout
 };
 
 export default nextConfig;
