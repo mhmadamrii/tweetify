@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation';
 import { apiLogoutUser, apiGetAuthUser } from '~/actions/auth.action';
 import { useEffect, useState } from 'react';
 import { AppProgressBar as ProgressBar } from 'next-nprogress-bar';
-import { useSearchParams } from 'next/navigation';
+// import { useSearchParams } from 'next/navigation';
 import {
   QueryClient,
   QueryClientProvider,
@@ -49,8 +49,8 @@ export default function Authenticated({
     }
   };
 
-  const searchParams = useSearchParams();
-  const isOpenPost = searchParams.get('create-post');
+  // const searchParams = useSearchParams();
+  // const isOpenPost = searchParams.get('create-post');
 
   if (isMounted) handleRedirectUncompleteUser();
 
@@ -75,7 +75,7 @@ export default function Authenticated({
         </div>
         <Rightbar />
       </section>
-      {!!isOpenPost && <CreateTweet />}
+      {/* {!!isOpenPost && <CreateTweet />} */}
     </QueryClientProvider>
   );
 }

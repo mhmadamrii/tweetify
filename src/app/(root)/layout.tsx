@@ -6,9 +6,10 @@ export default async function Layout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <Suspense fallback={<h1>Loading the Stream....</h1>}>
-      <Authenticated>{children}</Authenticated>
-    </Suspense>
-  );
+  return <Authenticated>{children}</Authenticated>;
+  // return (
+  //   <Suspense fallback={<h1>Loading the Stream....</h1>}>
+  //     <Authenticated>{children}</Authenticated>
+  //   </Suspense>
+  // );
 }
