@@ -68,7 +68,7 @@ export default function Login() {
   const SERVER_ENDPOINT =
     environment === 'development'
       ? 'http://localhost:3000'
-      : 'https://scintillating-salmiakki-ec4e99.netlify.app/';
+      : 'https://scintillating-salmiakki-ec4e99.netlify.app';
   // : 'https://project-21-tweetify.vercel.app';
 
   console.log('process env', process.env.NODE_ENV);
