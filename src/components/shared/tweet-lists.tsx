@@ -6,6 +6,7 @@ import { getAllTweetsAction } from '~/actions/tweet.action';
 
 export default async function TweetLists() {
   const tweets = (await getAllTweetsAction()) ?? [];
+  console.log('tweets', tweets);
   return (
     <>
       {tweets?.map((item, idx) => (
