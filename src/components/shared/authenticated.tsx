@@ -60,7 +60,8 @@ export default function Authenticated({
   }, []);
 
   return (
-    <QueryClientProvider client={queryClient}>
+    <>
+      {/* <QueryClientProvider client={queryClient}> */}
       <ProgressBar
         height="4px"
         color="#050000"
@@ -76,6 +77,7 @@ export default function Authenticated({
         <Rightbar />
       </section>
       {/* {!!isOpenPost && <CreateTweet />} */}
-    </QueryClientProvider>
+      {/* </QueryClientProvider> */}
+    </>
   );
 }
