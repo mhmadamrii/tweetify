@@ -14,6 +14,8 @@ import { cn } from '~/lib/utils';
 import { Button } from '~/components/ui/button';
 import { useToast } from '~/components/ui/use-toast';
 import { LoadingSpinner } from '../_components';
+import { useSearchParams } from 'next/navigation';
+import { signIn } from 'next-auth/react';
 
 import {
   Form,
@@ -37,6 +39,9 @@ const FormSchema = z.object({
 export default function Login() {
   const store = useStore();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get('callbackUrl') || '/profile';
+  console.log('callback', callbackUrl);
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -50,8 +55,17 @@ export default function Login() {
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     store.setRequestLoading(true);
     try {
-      const user = await apiLoginUser(JSON.stringify(data));
-      console.log('should be user', user);
+      const res = await signIn('credentials', {
+        redirect: false,
+        email: data.email,
+        password: data?.password,
+        callbackUrl,
+      });
+
+      if (!res?.error) {
+        // router.push(callbackUrl);
+        router.push('/homepage');
+      }
     } catch (error) {
       toast({
         title: 'Error',
@@ -60,19 +74,8 @@ export default function Login() {
       console.log('error', error);
     } finally {
       store.setRequestLoading(false);
-      router.push('/homepage');
     }
   }
-
-  const environment = process.env.NODE_ENV;
-  const SERVER_ENDPOINT =
-    environment === 'development'
-      ? 'http://localhost:3000'
-      : 'https://scintillating-salmiakki-ec4e99.netlify.app';
-  // : 'https://project-21-tweetify.vercel.app';
-
-  console.log('process env', process.env.NODE_ENV);
-  console.log('server endpoint', SERVER_ENDPOINT);
 
   return (
     <section className="flex w-full flex-col items-center justify-center md:w-[500px]">

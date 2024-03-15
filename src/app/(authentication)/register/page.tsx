@@ -54,9 +54,14 @@ export default function Register() {
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     store.setRequestLoading(true);
     try {
-      const user = await apiRegisterUser(JSON.stringify(data));
-      store.setAuthUser(user);
-      return router.push('/login');
+      const res = await fetch('/api/register', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      if (res.ok) router.push('/login');
     } catch (error: any) {
       if (error instanceof Error) {
         handleApiError(error);

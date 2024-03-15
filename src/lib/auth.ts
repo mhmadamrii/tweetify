@@ -53,12 +53,14 @@ export const authOptions: NextAuthOptions = {
         ) {
           return null;
         }
-
+        console.log('user logged in', user);
         return {
+          ...user,
           id: user.id,
           email: user.email,
           name: user.name,
-          randomKey: 'Hey cool',
+          testing: 'what the fuck',
+          randomKey: 'Hey Cool',
         };
       },
     }),
@@ -75,6 +77,7 @@ export const authOptions: NextAuthOptions = {
       };
     },
     jwt: ({ token, user }) => {
+      console.log('user', user);
       if (user) {
         const u = user as unknown as any;
         return {

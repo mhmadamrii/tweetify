@@ -41,12 +41,12 @@ export default function Authenticated({
   };
 
   const handleRedirectUncompleteUser = async () => {
-    const user = await apiGetAuthUser();
-    if (!user?.isCompleted) {
-      router.push(
-        `/homepage/onboarding?user-id=${user?.id}&username=${user?.username}`,
-      );
-    }
+    // const user = await apiGetAuthUser();
+    // if (!user?.isCompleted) {
+    //   router.push(
+    //     `/homepage/onboarding?user-id=${user?.id}&username=${user?.username}`,
+    //   );
+    // }
   };
 
   // const searchParams = useSearchParams();

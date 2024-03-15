@@ -21,7 +21,10 @@ export const RegisterButton = () => {
 
 export const LogoutButton = () => {
   return (
-    <button style={{ marginRight: 10 }} onClick={() => signOut()}>
+    <button
+      className="border border-red-500"
+      onClick={() => signOut()}
+    >
       Sign Out
     </button>
   );

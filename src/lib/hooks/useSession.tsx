@@ -10,8 +10,8 @@ export default function useSession() {
 
   async function fetchUser() {
     try {
-      const user = await apiGetAuthUser();
-      store.setAuthUser(user);
+      // const user = await apiGetAuthUser();
+      // store.setAuthUser(user);
     } catch (error: any) {
       store.reset();
     }

@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Button } from '../ui/button';
+import { LogoutButton } from './next-auth-button';
 
 const navLinks = [
   {
@@ -34,7 +35,7 @@ export default function Navbar({
           </Link>
         ))}
       </nav>
-      <Button onClick={handleLogout}>Logout</Button>
+      <LogoutButton />
     </section>
   );
 }

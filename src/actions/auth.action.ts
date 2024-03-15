@@ -33,17 +33,14 @@ async function handleResponse<T>(response: Response): Promise<T> {
 export async function apiRegisterUser(
   credentials: string,
 ): Promise<FilteredUser> {
-  const response = await fetch(
-    `${SERVER_ENDPOINT}/api/auth/register`,
-    {
-      method: 'POST',
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: credentials,
+  const response = await fetch(`${SERVER_ENDPOINT}/api/register`, {
+    method: 'POST',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
     },
-  );
+    body: credentials,
+  });
 
   return handleResponse<UserResponse>(response).then(
     (data) => data.data.user,
