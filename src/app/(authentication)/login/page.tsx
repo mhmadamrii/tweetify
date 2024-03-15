@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { Suspense } from 'react';
 import Link from 'next/link';
 import useStore from '~/store';
 
@@ -36,7 +36,7 @@ const FormSchema = z.object({
   }),
 });
 
-export default function Login() {
+function Login() {
   const store = useStore();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -148,5 +148,13 @@ export default function Login() {
         </Link>
       </div>
     </section>
+  );
+}
+
+export default function WrappedLogin() {
+  return (
+    <Suspense fallback={'retreiving data...'}>
+      <Login />
+    </Suspense>
   );
 }
