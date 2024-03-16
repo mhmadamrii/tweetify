@@ -6,7 +6,7 @@ import { create } from 'zustand';
 type Store = {
   authUser: FilteredUser | null;
   requestLoading: boolean;
-  setAuthUser: (user: FilteredUser | null) => void;
+  setAuthUser: (user: any | null) => void;
   setRequestLoading: (isLoading: boolean) => void;
   reset: () => void;
 };

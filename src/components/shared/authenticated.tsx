@@ -4,43 +4,34 @@ import useStore from '~/store';
 import Leftbar from './leftbar';
 import Navbar from './navbar';
 import Rightbar from './rightbar';
-import useSession from '~/lib/hooks/useSession';
+import CreateTweet from './create-tweet-modal';
 
 import { useRouter } from 'next/navigation';
-import { apiLogoutUser, apiGetAuthUser } from '~/actions/auth.action';
 import { useEffect, useState } from 'react';
 import { AppProgressBar as ProgressBar } from 'next-nprogress-bar';
+import { getUserAction } from '~/actions/user.action';
+import { useQuery } from '@tanstack/react-query';
 // import { useSearchParams } from 'next/navigation';
-import {
-  QueryClient,
-  QueryClientProvider,
-} from '@tanstack/react-query';
-import CreateTweet from './create-tweet-modal';
 
 export default function Authenticated({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const queryClient = new QueryClient();
   const [isMounted, setIsMounted] = useState<boolean>(false);
   const store = useStore();
   const router = useRouter();
-  const user = useSession();
+  const { isLoading, data } = useQuery({
+    queryKey: ['userData'],
+    queryFn: () => {
+      return getUserAction({ id: 'lQu5Fe7HLIPhrEgrDHTkvcHY1Y8PaW' });
+    },
+  });
 
-  const handleLogout = async () => {
-    store.setRequestLoading(true);
-    try {
-      await apiLogoutUser();
-    } catch (error) {
-      console.log(error);
-    } finally {
-      store.reset();
-      router.push('/login');
-    }
-  };
+  console.log('data', data);
 
   const handleRedirectUncompleteUser = async () => {
+    if (data?.username) store.setAuthUser(data);
     // const user = await apiGetAuthUser();
     // if (!user?.isCompleted) {
     //   router.push(
@@ -61,7 +52,6 @@ export default function Authenticated({
 
   return (
     <>
-      {/* <QueryClientProvider client={queryClient}> */}
       <ProgressBar
         height="4px"
         color="#050000"
@@ -71,13 +61,12 @@ export default function Authenticated({
       <section className="flex">
         <Leftbar />
         <div className="w-full">
-          <Navbar handleLogout={handleLogout} />
+          <Navbar handleLogout={() => console.log('dude')} />
           {children}
         </div>
         <Rightbar />
       </section>
       {/* {!!isOpenPost && <CreateTweet />} */}
-      {/* </QueryClientProvider> */}
     </>
   );
 }

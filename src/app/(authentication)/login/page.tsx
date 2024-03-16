@@ -61,6 +61,7 @@ function Login() {
         password: data?.password,
         callbackUrl,
       });
+      console.log(res);
 
       if (!res?.error) {
         // router.push(callbackUrl);

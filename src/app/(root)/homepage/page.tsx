@@ -12,6 +12,7 @@ export default async function Home() {
   if (!session) {
     redirect('/api/auth/signin');
   }
+
   return (
     <section>
       <Suspense fallback={<span>Loading contents....</span>}>

@@ -52,3 +52,17 @@ export async function saveUserAction({
     console.log('[ERROR_SAVE_USER_ACTION]', error);
   }
 }
+
+export async function getUserAction({ id }: { id: string }) {
+  try {
+    const res = await prisma.user.findUnique({
+      where: {
+        id,
+      },
+    });
+    console.log('response server', res);
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+}
